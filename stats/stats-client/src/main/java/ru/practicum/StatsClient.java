@@ -38,7 +38,7 @@ public class StatsClient {
         Map<String, Object> parameters = Map.of(
                 "start", start,
                 "end", end,
-                "uris", String.join(",",uris),
+                "uris", String.join(",", uris),
                 "unique", unique
         );
 

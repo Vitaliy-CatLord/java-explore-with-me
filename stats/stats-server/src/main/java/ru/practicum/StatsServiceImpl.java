@@ -53,7 +53,7 @@ public class StatsServiceImpl implements StatsService {
     }
 
     private List<ViewStatsDto> loadStatsFromRepository(LocalDateTime start, LocalDateTime end,
-                                                        List<String> uris, boolean unique) {
+                                                       List<String> uris, boolean unique) {
         if (uris == null || uris.isEmpty()) {
             if (unique) {
                 return statsRepository.getStatsWithoutUrisAndUniqueIp(start, end);
