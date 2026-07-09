@@ -30,8 +30,7 @@ public class StatsClient {
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<EndpointHitDto> requestEntity = new HttpEntity<>(hitDto, headers);
 
-        rest.exchange("hit", HttpMethod.POST, requestEntity, Object.class);
-
+        rest.exchange("/hit", HttpMethod.POST, requestEntity, Object.class);
     }
 
     public ResponseEntity<Object> getStats(String start, String end, List<String> uris, Boolean unique) {
