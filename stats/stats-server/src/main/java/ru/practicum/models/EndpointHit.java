@@ -1,4 +1,4 @@
-package ru.practicum;
+package ru.practicum.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -6,10 +6,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDateTime;
 
@@ -19,21 +17,22 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class EndpointHit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    Long id;
 
     @Column(name = "app", nullable = false)
-    private String app;
+    String app;
 
     @Column(name = "uri", nullable = false, length = 512)
-    private String uri;
+    String uri;
 
     @Column(name = "ip", nullable = false, length = 45)
-    private String ip;
+    String ip;
 
     @Column(name = "timestamp", nullable = false)
-    private LocalDateTime timestamp;
+    LocalDateTime timestamp;
 }
