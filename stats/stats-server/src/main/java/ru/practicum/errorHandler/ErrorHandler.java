@@ -11,7 +11,7 @@ public class ErrorHandler {
 
     @ExceptionHandler(IllegalArgumentException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse handleIllegalArgumentException(final IllegalArgumentException e) {
+    public ErrorResponse handleIAE(final IllegalArgumentException e) {
         return new ErrorResponse(e.getMessage());
     }
 }
