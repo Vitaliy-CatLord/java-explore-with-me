@@ -24,8 +24,8 @@ public interface EventRepository extends JpaRepository<Event, Long> {
             "WHERE (:users IS NULL OR e.initiator.id IN :users) " +
             "AND (:states IS NULL OR e.state IN :states) " +
             "AND (:categories IS NULL OR e.category.id IN :categories) " +
-            "AND (:start IS NULL OR e.eventDate >= :start) " +
-            "AND (:end IS NULL OR e.eventDate <= :end)")
+            "AND (CAST(:start AS timestamp) IS NULL OR e.eventDate >= :start) " +
+            "AND (CAST(:end AS timestamp) IS NULL OR e.eventDate <= :end)")
     Page<Event> findEventsByAdmin(@Param("users") List<Long> users,
                                   @Param("states") List<EventState> states,
                                   @Param("categories") List<Long> categories,
