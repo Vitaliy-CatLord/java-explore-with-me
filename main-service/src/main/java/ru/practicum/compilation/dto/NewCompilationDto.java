@@ -2,10 +2,8 @@ package ru.practicum.compilation.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,15 +12,16 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class NewCompilationDto {
 
     @Builder.Default
-    private List<Long> events = new ArrayList<>();
+    List<Long> events = new ArrayList<>();
 
     @Builder.Default
-    private Boolean pinned = false;
+    Boolean pinned = false;
 
     @NotBlank(message = "Заголовок подборки должен быть заполнен")
     @Size(min = 1, max = 50, message = "Заголовок подборки должен быть от 1 до 50 символов")
-    private String title;
+    String title;
 }

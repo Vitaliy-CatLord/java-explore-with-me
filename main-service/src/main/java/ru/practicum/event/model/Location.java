@@ -2,21 +2,20 @@ package ru.practicum.event.model;
 
 import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 @Data
 @Builder
 @Embeddable
 @NoArgsConstructor
 @AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Location {
 
     @NotNull(message = "Заполните широту")
-    private Float lat;
+    Float lat;
 
     @NotNull(message = "Заполните долготу")
-    private Float lon;
+    Float lon;
 }

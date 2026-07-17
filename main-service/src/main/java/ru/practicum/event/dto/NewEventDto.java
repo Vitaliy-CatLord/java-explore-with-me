@@ -6,10 +6,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 import ru.practicum.event.model.Location;
 
 import java.time.LocalDateTime;
@@ -18,38 +16,39 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class NewEventDto {
 
     @NotBlank(message = "Краткое описание должно быть заполнено")
     @Size(min = 20, max = 2000, message = "Краткое описание должно быть от 20 до 2000 символов")
-    private String annotation;
+    String annotation;
 
     @NotNull(message = "Категория должна быть заполнено")
-    private Long category;
+    Long category;
 
     @NotBlank(message = "Описание должно быть заполнено")
     @Size(min = 20, max = 7000, message = "Описание должно быть от 20 до 7000 символов")
-    private String description;
+    String description;
 
     @NotNull(message = "Дата события должна быть заполнена")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime eventDate;
+    LocalDateTime eventDate;
 
     @Valid
     @NotNull(message = "Координаты локации обязательны")
-    private Location location;
+    Location location;
 
     @Builder.Default
-    private Boolean paid = false;
+    Boolean paid = false;
 
     @Builder.Default
     @PositiveOrZero(message = "Лимит участников не может быть отрицательным")
-    private Integer participantLimit = 0;
+    Integer participantLimit = 0;
 
     @Builder.Default
-    private Boolean requestModeration = true;
+    Boolean requestModeration = true;
 
     @NotBlank(message = "Заголовок должен быть заполнен")
     @Size(min = 3, max = 120, message = "Заголовок должен быть от 3 до 120 символов")
-    private String title;
+    String title;
 }

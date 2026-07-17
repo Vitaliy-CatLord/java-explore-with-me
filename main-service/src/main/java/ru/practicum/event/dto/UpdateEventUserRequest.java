@@ -4,10 +4,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 import ru.practicum.event.model.Location;
 
 import java.time.LocalDateTime;
@@ -16,31 +14,32 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class UpdateEventUserRequest {
 
     @Size(min = 20, max = 2000, message = "Аннотация должна быть от 20 до 2000 символов")
-    private String annotation;
+    String annotation;
 
-    private Long category;
+    Long category;
 
     @Size(min = 20, max = 7000, message = "Описание должно быть от 20 до 7000 символов")
-    private String description;
+    String description;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime eventDate;
+    LocalDateTime eventDate;
 
     @Valid
-    private Location location;
+    Location location;
 
-    private Boolean paid;
+    Boolean paid;
 
     @PositiveOrZero(message = "Лимит участников не может быть отрицательным")
-    private Integer participantLimit;
+    Integer participantLimit;
 
-    private Boolean requestModeration;
+    Boolean requestModeration;
 
-    private UserStateAction stateAction;
+    UserStateAction stateAction;
 
     @Size(min = 3, max = 120, message = "Заголовок должен быть от 3 до 120 символов")
-    private String title;
+    String title;
 }
