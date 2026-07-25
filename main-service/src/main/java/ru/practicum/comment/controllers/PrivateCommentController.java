@@ -14,6 +14,8 @@ import ru.practicum.comment.service.CommentService;
 @RequestMapping("/users/{userId}/comments")
 public class PrivateCommentController {
 
+    private static final String COMMENT_ID = "/{commentId}";
+
     private final CommentService commentService;
 
     @PostMapping
@@ -24,14 +26,14 @@ public class PrivateCommentController {
         return commentService.createComment(userId, eventId, newCommentDto);
     }
 
-    @PatchMapping("/{commentId}")
+    @PatchMapping(COMMENT_ID)
     public CommentDto updateComment(@PathVariable Long userId,
                                     @PathVariable Long commentId,
                                     @Valid @RequestBody NewCommentDto newCommentDto) {
         return commentService.updateComment(userId, commentId, newCommentDto);
     }
 
-    @DeleteMapping("/{commentId}")
+    @DeleteMapping(COMMENT_ID)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCommentByUser(@PathVariable Long userId,
                                     @PathVariable Long commentId) {

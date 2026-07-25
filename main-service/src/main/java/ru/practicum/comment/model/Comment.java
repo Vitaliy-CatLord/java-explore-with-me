@@ -2,6 +2,7 @@ package ru.practicum.comment.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 import ru.practicum.event.model.Event;
 import ru.practicum.user.model.User;
 
@@ -14,25 +15,26 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Comment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    Long id;
 
     @Column(name = "text", nullable = false, length = 2000)
-    private String text;
+    String text;
 
     @ManyToOne
     @JoinColumn(name = "event_id", nullable = false)
-    private Event event;
+    Event event;
 
     @ManyToOne
     @JoinColumn(name = "author_id", nullable = false)
-    private User author;
+    User author;
 
     @Column(name = "created", nullable = false)
-    private LocalDateTime created;
+    LocalDateTime created;
 
     @Override
     public boolean equals(Object o) {

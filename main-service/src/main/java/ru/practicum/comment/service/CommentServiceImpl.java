@@ -83,7 +83,7 @@ public class CommentServiceImpl implements CommentService {
     public void deleteCommentByAdmin(Long commentId) {
         log.info("Удаление администратором комментария с id={}", commentId);
         if (!commentRepository.existsById(commentId)) {
-            throw new NotFoundException("Комментарий с id " + commentId + " не найден");
+            throw new NotFoundException(String.format("Комментарий с id %d не найден", commentId));
         }
         commentRepository.deleteById(commentId);
     }
@@ -106,17 +106,17 @@ public class CommentServiceImpl implements CommentService {
 
     private User getUserOrThrow(Long userId) {
         return userRepository.findById(userId)
-                .orElseThrow(() -> new NotFoundException("Пользователь с id " + userId + " не найден"));
+                .orElseThrow(() -> new NotFoundException(String.format("Пользователь с id %d не найден", userId)));
     }
 
     private Event getEventOrThrow(Long eventId) {
         return eventRepository.findById(eventId)
-                .orElseThrow(() -> new NotFoundException("Событие с id " + eventId + " не найдено"));
+                .orElseThrow(() -> new NotFoundException(String.format("Событие с id %d не найдено", eventId)));
     }
 
     private Comment getCommentOrThrow(Long commentId) {
         return commentRepository.findById(commentId)
-                .orElseThrow(() -> new NotFoundException("Комментарий с id " + commentId + " не найден"));
+                .orElseThrow(() -> new NotFoundException(String.format("Комментарий с id %d не найден", commentId)));
     }
 
     private void checkCommentAuthor(Comment comment, Long userId) {

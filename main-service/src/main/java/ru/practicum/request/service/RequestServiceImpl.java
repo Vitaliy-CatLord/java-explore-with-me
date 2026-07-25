@@ -75,7 +75,7 @@ public class RequestServiceImpl implements RequestService {
         log.info("Отмена заявки id={} пользователем id={}", requestId, userId);
 
         ParticipationRequest request = requestRepository.findByIdAndRequesterId(requestId, userId)
-                .orElseThrow(() -> new NotFoundException("Заявка с id " + requestId + " не найдена"));
+                .orElseThrow(() -> new NotFoundException(String.format("Заявка с id %d не найдена", requestId)));
 
         if (request.getStatus() == RequestStatus.CONFIRMED) {
             decrementConfirmedRequests(request.getEvent());
@@ -160,12 +160,12 @@ public class RequestServiceImpl implements RequestService {
 
     private User getUserOrThrow(Long userId) {
         return userRepository.findById(userId)
-                .orElseThrow(() -> new NotFoundException("Пользователь с id " + userId + " не найден"));
+                .orElseThrow(() -> new NotFoundException(String.format("Пользователь с id %d не найден", userId)));
     }
 
     private Event getEventOrThrow(Long eventId) {
         return eventRepository.findById(eventId)
-                .orElseThrow(() -> new NotFoundException("Событие с id " + eventId + " не найдено"));
+                .orElseThrow(() -> new NotFoundException(String.format("Событие с id %d не найдено", eventId)));
     }
 
     private void checkRequestConstraints(Long userId, Event event) {

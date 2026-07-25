@@ -2,6 +2,7 @@ package ru.practicum.comment.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDateTime;
 
@@ -10,13 +11,14 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class CommentDto {
 
-    private Long id;
-    private String text;
-    private Long eventId;
-    private String authorName;
+    Long id;
+    String text;
+    Long eventId;
+    String authorName;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime created;
+    LocalDateTime created;
 }
