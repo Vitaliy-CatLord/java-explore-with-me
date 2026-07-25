@@ -24,6 +24,8 @@ import java.util.List;
 @RequestMapping("/admin/events")
 public class AdminEventController {
 
+    private static final String EVENT_ID = "/{eventId}";
+
     private final EventService eventService;
 
     @GetMapping
@@ -38,7 +40,7 @@ public class AdminEventController {
         return eventService.getEventsByAdmin(users, states, categories, rangeStart, rangeEnd, from, size);
     }
 
-    @PatchMapping("/{eventId}")
+    @PatchMapping(EVENT_ID)
     public EventFullDto updateEventByAdmin(@PathVariable Long eventId,
                                            @Valid @RequestBody UpdateEventAdminRequest request) {
 

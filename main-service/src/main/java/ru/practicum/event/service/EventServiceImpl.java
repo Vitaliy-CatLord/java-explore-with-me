@@ -112,22 +112,22 @@ public class EventServiceImpl implements EventService {
 
     private User getUserOrThrow(Long userId) {
         return userRepository.findById(userId)
-                .orElseThrow(() -> new NotFoundException("Пользователь с id " + userId + " не найден"));
+                .orElseThrow(() -> new NotFoundException(String.format("Пользователь с id %d не найден", userId)));
     }
 
     private Category getCategoryOrThrow(Long catId) {
         return categoryRepository.findById(catId)
-                .orElseThrow(() -> new NotFoundException("Категория с id " + catId + " не найдена"));
+                .orElseThrow(() -> new NotFoundException(String.format("Категория с id %d не найдена", catId)));
     }
 
     private Event getEventByInitiatorOrThrow(Long eventId, Long userId) {
         return eventRepository.findByIdAndInitiatorId(eventId, userId)
-                .orElseThrow(() -> new NotFoundException("Событие с id " + eventId + " не найдено"));
+                .orElseThrow(() -> new NotFoundException(String.format("Событие с id %d не найдено", eventId)));
     }
 
     private void validateEventDate(LocalDateTime date, int hours) {
         if (date.isBefore(LocalDateTime.now().plusHours(hours))) {
-            throw new IllegalArgumentException("Дата события должна быть на " + hours + " часа позже");
+            throw new IllegalArgumentException(String.format("Дата события должна быть на %d часа позже", hours));
         }
     }
 
@@ -199,7 +199,7 @@ public class EventServiceImpl implements EventService {
     @Override
     @Transactional
     public EventFullDto updateEventByAdmin(Long eventId, UpdateEventAdminRequest request) {
-        log.info("Обновление события id={} администратором", eventId);
+        log.info("Обновление события id = {} администратором", eventId);
 
         Event event = getEventOrThrow(eventId);
 
@@ -220,7 +220,7 @@ public class EventServiceImpl implements EventService {
 
     private Event getEventOrThrow(Long eventId) {
         return eventRepository.findById(eventId)
-                .orElseThrow(() -> new NotFoundException("Событие с id " + eventId + " не найдено"));
+                .orElseThrow(() -> new NotFoundException(String.format("Событие с id %d не найдено", eventId)));
     }
 
     private void updateFieldsFromAdminRequest(Event event, UpdateEventAdminRequest request) {
@@ -336,7 +336,7 @@ public class EventServiceImpl implements EventService {
     @Transactional
     public EventFullDto getEventByIdPublic(Long eventId, String ip, String uri) {
         Event event = eventRepository.findByIdAndState(eventId, EventState.PUBLISHED)
-                .orElseThrow(() -> new NotFoundException("Опубликованное событие с id " + eventId + " не найдено"));
+                .orElseThrow(() -> new NotFoundException(String.format("Опубликованное событие с id %d не найдено", eventId)));
 
         sendHitToStatsServer("main-service", uri, ip);
         loadViews(event);

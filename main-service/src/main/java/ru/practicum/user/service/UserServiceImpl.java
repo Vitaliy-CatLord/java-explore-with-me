@@ -60,7 +60,7 @@ public class UserServiceImpl implements UserService {
     public void deleteUser(Long userId) {
         log.info("Удаление пользователя с id: {}", userId);
         if (!userRepository.existsById(userId)) {
-            throw new IllegalArgumentException("Пользователь с id " + userId + " не найден");
+            throw new IllegalArgumentException(String.format("Пользователь с id %d не найден", userId));
         }
         userRepository.deleteById(userId);
     }

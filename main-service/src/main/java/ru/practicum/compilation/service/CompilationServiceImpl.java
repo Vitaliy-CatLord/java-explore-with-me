@@ -66,7 +66,7 @@ public class CompilationServiceImpl implements CompilationService {
     @Transactional
     public void deleteCompilation(Long compId) {
         if (!compilationRepository.existsById(compId)) {
-            throw new NotFoundException("Подборка с id " + compId + " не найдена");
+            throw new NotFoundException(String.format("Подборка с id %d не найдена", compId));
         }
         compilationRepository.deleteById(compId);
     }
@@ -95,7 +95,7 @@ public class CompilationServiceImpl implements CompilationService {
 
     private Compilation getCompilationOrThrow(Long compId) {
         return compilationRepository.findById(compId)
-                .orElseThrow(() -> new NotFoundException("Подборка с id " + compId + " не найдена"));
+                .orElseThrow(() -> new NotFoundException(String.format("Подборка с id %d не найдена", compId)));
     }
 
     private Set<Event> fetchEventsByIds(List<Long> eventIds) {

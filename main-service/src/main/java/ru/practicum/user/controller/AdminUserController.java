@@ -27,6 +27,8 @@ import java.util.List;
 @RequestMapping("/admin/users")
 public class AdminUserController {
 
+    private static final String USER_ID = "/{userId}";
+
     private final UserService userService;
 
     @PostMapping
@@ -42,7 +44,7 @@ public class AdminUserController {
         return userService.getUsers(ids, from, size);
     }
 
-    @DeleteMapping("/{userId}")
+    @DeleteMapping(USER_ID)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteUser(@PathVariable Long userId) {
         userService.deleteUser(userId);

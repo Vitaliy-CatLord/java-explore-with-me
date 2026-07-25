@@ -22,6 +22,8 @@ import java.util.List;
 @RequestMapping("/events")
 public class PublicEventController {
 
+    private static final String EVENT_ID = "/{eventId}";
+
     private final EventService eventService;
 
     @GetMapping
@@ -43,11 +45,11 @@ public class PublicEventController {
         );
     }
 
-    @GetMapping("/{id}")
-    public EventFullDto getEventByIdPublic(@PathVariable Long id, HttpServletRequest request) {
+    @GetMapping(EVENT_ID)
+    public EventFullDto getEventByIdPublic(@PathVariable Long eventId, HttpServletRequest request) {
         String ip = request.getRemoteAddr();
         String uri = request.getRequestURI();
 
-        return eventService.getEventByIdPublic(id, ip, uri);
+        return eventService.getEventByIdPublic(eventId, ip, uri);
     }
 }
